@@ -25,6 +25,8 @@ HTTP协议版本:
 - `Origin`
 - `X-Forwarded-For`
 - `Content-Type`
+- `Accept-Language`
+- `User-Agent`
 
 常见响应报文头字段:
 
@@ -35,11 +37,40 @@ HTTP协议版本:
 - `Allow`
 
 ```html
+<meta http-equiv="refresh" content=""/>
+
 <a href="mailto:3228891557@163.com">email me</a>
 <a href="telnet:18830484731">call me</a>
 
 ```
 
+### XSS
+
+> 木马和蠕虫
+
+#### 反射型
+
+#### 存储型
+
+#### DOM型
+
+### SQL注入
+
+> SQL字段约束: 非空(NOT NULL)、默认值(DEFAULT)、主键(PRIMARY KEY)、唯一的(UNIQUE)和外键(FOREIGN KEY)
+
+```sql
+# ...
+-- ...
+/* ... */
+
+CREATE DATABASE DB;
+
+```
+
+
+### CSRF
+
+### 文件上传和包含
 
 [获取本机外网IP](https://ip.900cha.com/)
 
