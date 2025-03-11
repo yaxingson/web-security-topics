@@ -83,5 +83,62 @@ CREATE DATABASE DB;
 
 #### DDOS攻击
 
+## 子资源完整性
+
+一种前端安全机制，用于确保从外部加载的资源（如 JavaScript、CSS 文件等）未被篡改。它通过验证资源的哈希值来保证其完整性
+
+使用`openssl`生成哈希值:
+
+```sh
+openssl dgst -sha384 -binary example.js | openssl base64 -A
+
+```
+
+```html
+<script 
+  src="https://example.com/example.js"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC"
+  crossorigin="anonymous">
+</script>
+
+```
+
+Node端实现文件的`sha384`哈希加密:
+
+```js
+const crypto = require('crypto')
+const fs = require('fs')
+
+const filePath = 'example.txt'
+
+// 创建 SHA-384 哈希对象
+const hash = crypto.createHash('sha384');
+
+// 创建文件读取流
+const fileStream = fs.createReadStream(filePath);
+
+// 监听数据流，更新哈希对象
+fileStream.on('data', (chunk) => {
+  hash.update(chunk);
+});
+
+// 文件读取完成后，计算哈希值
+fileStream.on('end', () => {
+  const hexHash = hash.digest('hex');
+  console.log('SHA-384 Hash of file (hex):', hexHash);
+
+  const base64Hash = hash.digest('base64');
+  console.log('SHA-384 Hash of file (base64):', base64Hash);
+})
+
+fileStream.on('error', (err) => {
+  console.error('Error reading file:', err)
+})
+
+```
+
+
+
+
 
 ## 渗透测试
